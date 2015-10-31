@@ -33,7 +33,7 @@ app.get('/user', user.getUser);
 app.get('/event/:id', user.getEventById);
 app.get('/owner/events', user.getEventsByUser);
 app.post('/event', user.addEvent);
-app.post('/search/event', user.addEvent);
+app.post('/search/events', user.searchByQuery);
 
 
 

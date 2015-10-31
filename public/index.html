@@ -1,13 +1,20 @@
 <html>
   <head>
-    <title>No Walls</title>
+    <title>No Walls For Now</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <style>
+	.list-group-item{
+		overflow:auto;
+	}
+	.hide {
+		display:none;
+	}
+	.voffset  { margin-top: 2px; }
     </style>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js" type="text/javascript"></script>
-	<script src="//rein.parseapp.com/src/js/rein.js" type="text/javascript"></script>
+	<script src="/src/js/rein.js" type="text/javascript"></script>
   </head>
   <body>
     <div class="container" ng-app="reinApp" ng-controller="reinCtrl">
@@ -21,49 +28,69 @@
 		</div>
 		<div class="col-sm-4">
 		</div>
-		<div id="o_wrapper" class="col-sm-12" ng-show="isOwner" ng-hide="isVisitor">
+		<div id="o_wrapper" class="col-sm-12 voffset" ng-hide="!isOwner" ng-show="isOwner">
 		<div class="col-sm-12">
 		Organize an Event
 		</div>
-		<div class="col-sm-12">
+		<div class="col-sm-12 voffset">
 			<input class="form-control input-lg" placeholder="Enter Number or Email" ng-model="ownerNumberEmail" ng-blur="loadOwnerEvents()">
 		</div>
-		<div class="col-sm-12 messages">
-			
+		<div class="col-sm-12 messages voffset">
+			<span class="text-danger">{{ message }}</span>
 		</div>
-		<div class="col-sm-12">
+		<div class="col-sm-12 voffset">
 			<a href="javascript:;" class="btn btn-lg btn-primary" ng-click="addEvent()">Add Event</a>
 		</div>
-		<div class="col-sm-12 event_input" ng-show="addEventFlag">
+		<div class="col-sm-12 event_input voffset" ng-show="addEventFlag">
 			<input class="form-control input-lg" placeholder="When? Date Please." ng-model="eventDate">
 			<input class="form-control input-lg" placeholder="Provide a cool name." ng-model="eventName">
 			<input class="form-control input-lg" placeholder="What it is about in 50 words." ng-model="eventDesc">
 			<input class="form-control input-lg" placeholder="Where? address please." ng-model="eventAddr">
 			<input class="form-control input-lg" placeholder="any landmark?" ng-model="eventLandmark">
 			<input class="form-control input-lg" placeholder="City" ng-model="eventCity">
-			<input class="form-control input-lg" placeholder="eventCountry">
-			<a href="javascript:;" class="btn btn-lg btn-primary" ng-click="uploadEvent()">Done</a>
+			<input class="form-control input-lg" placeholder="Country" ng-model="country">
+			<a href="javascript:;" class="btn btn-lg btn-primary" ng-click="uploadEvent()" >Done</a>
 		</div>
-		<div class="col-sm-12 previous_events">
-			
+		<div class="col-sm-12 previous_events voffset">
+		<ul class="list-group">
+		<li class="list-group-item" ng-repeat='oEvent in ownerAddedEvent' ng-class="{'alert alert-danger': oEvent.closed}">
+		<div class="col-sm-12" ng-click="expandEvent()">
+		<div class="col-sm-5"><span class="lead text-left">{{ oEvent.name }}</span></div>
+		<div class="col-sm-3"></div>
+		<div class="col-sm-3"><span class="text-center">{{ oEvent.City }}</span></div>
+		<div class="col-sm-1"><span class="text-right glyphicon glyphicon-remove"></span></div>
+		</div>
+		</li>
+		</ul>
 		</div>
 		</div>
-		<div id="v_wrapper" class="col-sm-12" ng-show="isVisitor" ng-hide="isOwner">
-		<div class="col-sm-12">
+		<div id="v_wrapper" class="col-sm-12 voffset" ng-hide="!isVisitor" ng-show="isVisitor">
+		<div class="col-sm-12 voffset">
 		Search Event
 		</div>
-		<div class="col-sm-12">
+		<div class="col-sm-12 voffset">
 			<div class="col-sm-4">
-				<input class="form-control input-lg" placeholder="Enter City">
+				<input class="form-control input-lg" placeholder="Enter City" ng-model="searchCity">
 			</div>
 			<div class="col-sm-4">
-				<input class="form-control input-lg" placeholder="Enter keywords">
+				<input class="form-control input-lg" placeholder="Enter keywords" ng-model="searchQuery">
 				<span class="help-block">locality, address, specification etc.</span>
 			</div>
-<!-- 			<div class="col-sm-4">
-				<input class="form-control input-lg">
+			<div class="col-sm-4">
+				<a href="javascript:;" class="btn btn-lg btn-primary" ng-click="searchEvents()" ><span class="glyphicon glyphicon-search"></span></a>
 			</div>
- -->		</div>
+ 		</div>
+		<div class="col-sm-12 previous_events">
+		<ul class="list-group">
+		<li class="list-group-item" ng-repeat='vEvent in visitorLoadedEvent' ng-class="{'alert alert-danger': oEvent.closed}">
+		<div class="col-sm-12" ng-click="expandEvent()">
+		<div class="col-sm-6"><span class="lead text-left">{{ vEvent.name }}</span></div>
+		<div class="col-sm-3"></div>
+		<div class="col-sm-3"><span class="text-right">{{ vEvent.City }}</span></div>
+		</div>
+		</li>
+		</ul>
+		</div>
 		</div>
 	  </div>
     </div>
