@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "_default": {
+      "link": "codesign-31"
+    },
+    "codesign-31": {
+      "applicationId": "EtaTGmU5icRQIvIt3uZM7fNo1A4lbSmx7pj3iCmw"
+    }
+  }
+}

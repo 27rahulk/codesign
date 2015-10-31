@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <title>No Walls</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <style>
+    </style>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js" type="text/javascript"></script>
+	<script src="//rein.parseapp.com/src/js/rein.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div class="container" ng-app="reinApp" ng-controller="reinCtrl">
+      <h1>Open House Event.</h1>
+	  <div class="col-sm-12">
+		<div class="col-sm-4">
+		</div>
+		<div class="col-sm-4 btn-group btn-group-justified">
+			<a href="javascript:;" class="btn btn-lg btn-primary" ng-click="turnOwner()">Organizer</a>
+			<a href="javascript:;" class="btn btn-lg btn-primary" ng-click="turnVisitor()">Visitor</a>
+		</div>
+		<div class="col-sm-4">
+		</div>
+		<div id="o_wrapper" class="col-sm-12" ng-show="isOwner" ng-hide="isVisitor">
+		<div class="col-sm-12">
+		Organize an Event
+		</div>
+		<div class="col-sm-12">
+			<input class="form-control input-lg" placeholder="Enter Number or Email" ng-model="ownerNumberEmail" ng-blur="loadOwnerEvents()">
+		</div>
+		<div class="col-sm-12 messages">
+			
+		</div>
+		<div class="col-sm-12">
+			<a href="javascript:;" class="btn btn-lg btn-primary" ng-click="addEvent()">Add Event</a>
+		</div>
+		<div class="col-sm-12 event_input" ng-show="addEventFlag">
+			<input class="form-control input-lg" placeholder="When? Date Please." ng-model="eventDate">
+			<input class="form-control input-lg" placeholder="Provide a cool name." ng-model="eventName">
+			<input class="form-control input-lg" placeholder="What it is about in 50 words." ng-model="eventDesc">
+			<input class="form-control input-lg" placeholder="Where? address please." ng-model="eventAddr">
+			<input class="form-control input-lg" placeholder="any landmark?" ng-model="eventLandmark">
+			<input class="form-control input-lg" placeholder="City" ng-model="eventCity">
+			<input class="form-control input-lg" placeholder="eventCountry">
+			<a href="javascript:;" class="btn btn-lg btn-primary" ng-click="uploadEvent()">Done</a>
+		</div>
+		<div class="col-sm-12 previous_events">
+			
+		</div>
+		</div>
+		<div id="v_wrapper" class="col-sm-12" ng-show="isVisitor" ng-hide="isOwner">
+		<div class="col-sm-12">
+		Search Event
+		</div>
+		<div class="col-sm-12">
+			<div class="col-sm-4">
+				<input class="form-control input-lg" placeholder="Enter City">
+			</div>
+			<div class="col-sm-4">
+				<input class="form-control input-lg" placeholder="Enter keywords">
+				<span class="help-block">locality, address, specification etc.</span>
+			</div>
+<!-- 			<div class="col-sm-4">
+				<input class="form-control input-lg">
+			</div>
+ -->		</div>
+		</div>
+	  </div>
+    </div>
+  </body>
+</html>
